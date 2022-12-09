@@ -1,6 +1,7 @@
 ##!/bin/bash
 
-#Script para criação de usuarios
+#Esse script verifica se os diretorios que serão criados, existem, senão cria eles.
+#Logo depois os grupos são criados e depois são criados os usuarios com seus grupos devidos
 
 echo "Verificando se ja existem os diretorios e cria se não existir..."
 sleep 1
@@ -13,6 +14,7 @@ do
 	 echo "Criando diretorio $DIRECTORY..."
 	 sleep 1
 	 sudo mkdir /$DIRECTORY
+	fi
 done
 
 for GRP in {"GRP_ADM","GRP_VEN","GRP_SEC"}
@@ -42,6 +44,10 @@ do
 	sudo useradd $USER_SEC -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_SEC
 	sleep 1
 done
+
+sudo chown root:GRP_ADM /adm
+sudo chown root:GRP_SEC /ven
+sudo chown root:GRP_VEN /sec
 
 
 
